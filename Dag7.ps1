@@ -2,7 +2,7 @@ $data = Get-Content ".\7input.txt"
 
 ## Part 1
 $data = $data.split(",") | ForEach-Object {[int] $_}| Sort-Object
-$median = $data[($data.Count)/2]
+$median = $data[[Math]::Floor(($data.Count)/2)]
 $data | ForEach-Object {$fuel = 0}{$fuel += [Math]::Abs($_-$median)}{$fuel}
 
 ## Part 2
