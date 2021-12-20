@@ -85,3 +85,18 @@ foreach ($low in $lows) {
 
 $largests = $basins.values.size | Sort-Object | Select-Object -last 3    
 $largests[0]*$largests[1]*$largests[2]
+
+
+#Korte versie
+#misschien hier iets mee? 
+(($data[0..2] | Select-string "[^9]*" -AllMatches))     
+(($data[0..2] | Select-string "[^9]*" -AllMatches).Matches | ? {$_.value -ne ""}) | ft
+
+$mm = (($data[0..2] | Select-string "[^9]*" -AllMatches))  
+$mm.Count
+
+$counter = 0
+$basins = @{}
+foreach ($row in $mm) {
+    
+}
