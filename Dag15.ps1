@@ -84,17 +84,20 @@ function checkPath ($i, $x) {
     } 
 }
 
-
-for ($i = 0; $i -lt $weights.Count; $i++) {
-    Write-Progress -Activity "Getting Lowest Risk Paths" -Status "At number $i" -PercentComplete ($i/$maxi * 100)
-    if ([Math]::Floor(($i-1)/$rowL) -eq [Math]::Floor($i/$rowL)) { #niet Snake oversteken
-        checkPath -i $i -x ($i-1)
+while ($res -gt $risks[-1]) {
+    $res = $risks[-1]
+    $counter ++
+    Write-Output "loop $counter, ltr $res"
+    for ($i = 0; $i -lt $weights.Count; $i++) {
+        Write-Progress -Activity "Getting Lowest Risk Paths" -Status "At number $i" -PercentComplete ($i/$maxi * 100)
+        if ([Math]::Floor(($i-1)/$rowL) -eq [Math]::Floor($i/$rowL)) { #niet Snake oversteken
+            checkPath -i $i -x ($i-1)
+        }
+        if ([Math]::Floor(($i+1)/$rowL) -eq [Math]::Floor($i/$rowL)) { #niet Snake oversteken
+            checkPath -i $i -x ($i+1)
+        }
+        checkPath -i $i -x ($i-$rowL)
+        checkPath -i $i -x ($i+$rowL)
     }
-    if ([Math]::Floor(($i+1)/$rowL) -eq [Math]::Floor($i/$rowL)) { #niet Snake oversteken
-        checkPath -i $i -x ($i+1)
-    }
-    checkPath -i $i -x ($i-$rowL)
-    checkPath -i $i -x ($i+$rowL)
 }
 
-$risks[-1] #is wel goed voor de testdata, maar niet voor de puzzeldata :( #2902 is te hoog...
