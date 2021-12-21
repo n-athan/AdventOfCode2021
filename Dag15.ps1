@@ -101,3 +101,4 @@ while ($res -gt $risks[-1]) {
     }
 }
 
+$risks[-1]
